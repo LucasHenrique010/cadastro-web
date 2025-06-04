@@ -39,11 +39,12 @@ def cadastro():
 
     return render_template('cadastro.html', sucesso=False)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-git status
 @app.route('/')
 def index():
     return "Página inicial - vá para /cadastro para acessar o formulário"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
 
