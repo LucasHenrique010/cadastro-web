@@ -39,10 +39,6 @@ def cadastro():
 
     return render_template('cadastro.html', sucesso=False)
 
-@app.route('/')
-def index():
-    return "Página inicial - vá para /cadastro para acessar o formulário"
-
 if __name__ == '__main__':
     app.run(debug=True)
 
