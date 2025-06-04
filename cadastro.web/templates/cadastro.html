@@ -29,8 +29,7 @@
       color: #555;
     }
     input[type="text"],
-    input[type="email"],
-    select {
+    input[type="email"] {
       padding: 8px;
       font-size: 1rem;
       border: 1px solid #ccc;
@@ -38,7 +37,7 @@
       width: 100%;
       box-sizing: border-box;
     }
-    input[type="submit"], .btn-voltar {
+    input[type="submit"] {
       padding: 10px;
       font-size: 1.1rem;
       background-color: #28a745;
@@ -47,21 +46,34 @@
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      text-align: center;
-      text-decoration: none;
     }
-    input[type="submit"]:hover, .btn-voltar:hover {
+    input[type="submit"]:hover {
       background-color: #218838;
     }
     .success-msg {
-      text-align: center;
       color: green;
       font-weight: bold;
-      font-size: 1.5rem;
-      margin-top: 50px;
+      text-align: center;
+      margin-top: 15px;
     }
-    .hidden {
-      display: none;
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .btn-voltar {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
     }
   </style>
   <script>
@@ -84,16 +96,18 @@
   </script>
 </head>
 <body>
+  <h1>Cadastro de Responsável</h1>
 
   {% if sucesso %}
-    <div class="success-msg">
-      Cadastro Concluído!
-      <br><br>
-      <a href="{{ url_for('cadastro') }}" class="btn-voltar">Voltar ao Início</a>
+    <p class="success-msg" style="font-size: 1.3rem; margin-top: 100px;">
+      Cadastro concluído com sucesso!
+    </p>
+    <div style="text-align: center; margin-top: 30px;">
+      <button class="btn-voltar" onclick="window.location.href='{{ url_for('cadastro')|safe }}'">
+        Voltar ao Início
+      </button>
     </div>
   {% else %}
-    <h1>Cadastro de Responsável</h1>
-
     <form method="POST" action="{{ url_for('cadastro') }}">
       <label for="nome_responsavel">Nome do Responsável</label>
       <input type="text" id="nome_responsavel" name="nome_responsavel" required placeholder="Digite o nome do responsável" />
@@ -130,6 +144,7 @@
       <input type="submit" value="Cadastrar" />
     </form>
   {% endif %}
-
 </body>
 </html>
+
+
