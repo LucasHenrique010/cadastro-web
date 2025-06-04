@@ -41,3 +41,9 @@ def cadastro():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+git status
+@app.route('/')
+def index():
+    return "Página inicial - vá para /cadastro para acessar o formulário"
+
