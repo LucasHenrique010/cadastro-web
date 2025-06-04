@@ -2,10 +2,9 @@ from flask import Flask, render_template, request
 import psycopg2
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
-# URL do banco remoto (externa)
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://database_url_be4c_user:BCRx7VZlKPOMOlBWwYmdKhMjK2fq9UAL@dpg-d0jms4odl3ps73cm4s9g-a.oregon-postgres.render.com/database_url_be4c')
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://...')  # já definido no Render
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -38,6 +37,10 @@ def cadastro():
         return render_template('cadastro.html', sucesso=True)
 
     return render_template('cadastro.html', sucesso=False)
+
+@app.route('/')
+def index():
+    return "Página inicial - vá para /cadastro para acessar o formulário"
 
 if __name__ == '__main__':
     app.run(debug=True)
