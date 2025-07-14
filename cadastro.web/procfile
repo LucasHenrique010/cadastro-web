@@ -1,1 +1,2 @@
-web: gunicorn cadastro.web.app:app
+web: gunicorn app:app
+
