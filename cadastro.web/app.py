@@ -4,27 +4,23 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Carrega variáveis do arquivo .env (se existir)
+# Carrega variáveis do arquivo .env
 load_dotenv()
 
 app = Flask(__name__)
 
-# URL do banco remoto (Render)
-DATABASE_URL = os.getenv(
-    'DATABASE_URL',
-    'postgresql://database_url_be4c_user:BCRx7VZlKPOMOlBWwYmdKhMjK2fq9UAL@dpg-d0jms4odl3ps73cm4s9g-a.oregon-postgres.render.com/database_url_be4c'
-)
+DATABASE_URL = os.getenv('DATABASE_URL')
+if not DATABASE_URL:
+    raise ValueError("A variável DATABASE_URL não está definida no .env")
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
         try:
-            # Pega o dia do vencimento do formulário
             dia_vencimento = int(request.form['data_vencimento'])
             hoje = datetime.today()
             data_vencimento = datetime(hoje.year, hoje.month, dia_vencimento).date()
 
-            # Coleta os dados do formulário
             dados = (
                 request.form['nome_responsavel'],
                 request.form['cpf_responsavel'],
@@ -32,12 +28,11 @@ def cadastro():
                 request.form['nome_crianca'],
                 request.form['endereco'],
                 request.form['escola'],
-                0.0,  # Valor fixo (pode ser alterado no futuro)
+                0.0,  # valor fixo
                 data_vencimento
             )
 
-            # Conecta ao banco e insere os dados
-            conn = psycopg2.connect(DATABASE_URL)
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cur = conn.cursor()
             cur.execute("""
                 INSERT INTO cadastro_responsaveis
